@@ -31,9 +31,9 @@ antes de tocar nos arquivos, e você aprova.
 
 ```
 Leia o CLAUDE.md e docs/roadmap.md. Estamos na Fase 0.
-O esqueleto do repo já existe (docker-compose, requirements, .env.example, DDL dos schemas).
+O esqueleto do repo já existe (setup do Postgres portable em docs/setup_postgres_portable.md, requirements, .env.example, DDL dos schemas).
 Tarefas desta sessão:
-1. Suba o PostgreSQL com docker compose e confirme que os schemas raw, staging e dw foram criados
+1. Suba o PostgreSQL portable (pg_ctl -D "%USERPROFILE%\pgdata" start) e confirme que os schemas raw, staging e dw foram criados
 2. Crie o venv, instale as dependências e valide a conexão Python -> PostgreSQL com um script mínimo de teste usando as credenciais do .env
 3. Faça o commit inicial com mensagem adequada
 Não avance para a Fase 1. Ao final, rode /atualizar-status.
@@ -90,4 +90,4 @@ Siga as convenções do CLAUDE.md. Blocos pequenos, explicando as decisões.
 3. **Fim de sessão:** /atualizar-status → commit → atualizar arquivos 05/06 no
    Claude Project (para o chat continuar de onde o Code parou).
 4. Se o Claude propuser algo fora do escopo, a resposta é: "registre como fase 2".
-5. Erro de ambiente (Docker, psycopg2, encoding)? Cole o erro cru — não descreva.
+5. Erro de ambiente (pg_ctl, psycopg2, encoding)? Cole o erro cru — não descreva.
