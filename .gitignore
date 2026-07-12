@@ -1,0 +1,13 @@
+# Ambiente
+.env
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Dados brutos grandes (manter apenas amostras versionadas se necessario)
+data/raw/*
+!data/raw/.gitkeep
+
+# Power BI temporarios
+*.pbix.tmp

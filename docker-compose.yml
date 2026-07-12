@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: aneel_dw
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-aneel}
+      POSTGRES_USER: ${POSTGRES_USER:-aneel_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # roda automaticamente na primeira inicializacao do volume:
+      - ./sql/ddl/000_create_schemas.sql:/docker-entrypoint-initdb.d/000_create_schemas.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aneel_user} -d ${POSTGRES_DB:-aneel}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
