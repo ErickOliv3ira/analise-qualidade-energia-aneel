@@ -35,6 +35,12 @@
 **Decisão:** continuidade (grão conjunto) é agregada para distribuidora nas views de cruzamento com reclamações e tarifas.
 **Motivo:** grãos incompatíveis entre fontes; distribuidora é o nível comum e o nível das perguntas de negócio.
 
+## D-007 — PostgreSQL portable substitui Docker no ambiente atual
+**Data:** 12/07/2026
+**Contexto:** máquina corporativa não permite instalação de WSL (requer admin), o que inviabiliza o backend do Docker Desktop no Windows 11.
+**Decisão:** rodar PostgreSQL 16 a partir dos binários ZIP oficiais (EnterpriseDB) extraídos em `%USERPROFILE%\pgsql`, com cluster em `%USERPROFILE%\pgdata`. `docker-compose.yml` fica no repo como referência da arquitetura reproduzível; setup real documentado em `docs/setup_postgres_portable.md`.
+**Motivo:** nenhuma reescrita da modelagem — Postgres é Postgres. Mantém DDL, Python e Power BI intactos; só o "como subir" muda. Também troca `jupyter` por `ipykernel` no `requirements.txt` para contornar o limite de long-path do Windows (também dependente de admin).
+
 ---
 
 ## Modelo para novas entradas

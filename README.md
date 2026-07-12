@@ -13,12 +13,15 @@ Extração (API CKAN) → PostgreSQL `raw` → `staging` (data quality) → `dw`
 ## Como reproduzir
 
 ```bash
-cp .env.example .env          # ajuste a senha
-docker compose up -d          # PostgreSQL 16 com schemas raw/staging/dw
-python -m venv .venv && source .venv/bin/activate
+cp .env.example .env                     # ajuste a senha
+# subir PostgreSQL 16 (ver docs/setup_postgres_portable.md — caminho suportado no ambiente atual)
+python -m venv .venv && source .venv/Scripts/activate   # Windows
 pip install -r requirements.txt
-python -m src.pipeline --full # (em construção)
+python -m src.test_connection            # valida conexao e schemas
+python -m src.pipeline --full            # (em construção)
 ```
+
+> **Nota:** `docker-compose.yml` está no repo como referência de arquitetura. O ambiente de desenvolvimento atual roda o Postgres portable (sem Docker) — ver decisão **D-007** e o guia em [`docs/setup_postgres_portable.md`](docs/setup_postgres_portable.md).
 
 ## Documentação
 
@@ -29,7 +32,7 @@ python -m src.pipeline --full # (em construção)
 
 ## Stack
 
-PostgreSQL 16 (Docker) · Python 3.11 · SQL · Power BI · GitHub
+PostgreSQL 16 · Python 3.12 · SQL · Power BI · GitHub
 
 ---
 *Uso de IA: Claude como apoio de pair programming e documentação, com decisões técnicas validadas manualmente contra os dicionários oficiais da ANEEL.*

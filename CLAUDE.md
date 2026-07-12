@@ -5,15 +5,19 @@ Projeto de portfólio de dados: análise da qualidade do fornecimento de energia
 ## Comandos
 
 ```bash
-docker compose up -d                      # sobe PostgreSQL 16 (schemas raw, staging, dw)
-python -m venv .venv && source .venv/bin/activate
+# PostgreSQL: no ambiente atual usamos Postgres portable (ver docs/setup_postgres_portable.md).
+# Comandos abreviados assumem que o servidor ja esta rodando.
+"$USERPROFILE/pgsql/bin/pg_ctl.exe" -D "$USERPROFILE/pgdata" -l "$USERPROFILE/pgdata/server.log" start
+python -m venv .venv && source .venv/Scripts/activate   # Windows (bash: .venv/Scripts/activate)
 pip install -r requirements.txt
+python -m src.test_connection             # valida conexao e schemas raw/staging/dw
 python -m src.pipeline --full             # pipeline completo (extract → raw → staging → dw)
 python -m src.pipeline --incremental      # reprocessa apenas o ano corrente
 python -m src.quality.checks              # roda validações de data quality
 ```
 
 Credenciais do banco em `.env` (copiar de `.env.example`). Nunca commitar `.env`.
+`docker-compose.yml` fica como referência de arquitetura; setup real ver decisão D-007 e `docs/setup_postgres_portable.md`.
 
 ## Arquitetura
 
