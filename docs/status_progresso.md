@@ -2,20 +2,20 @@
 
 > **Arquivo vivo.** Ao concluir itens numa conversa, pedir ao Claude o texto atualizado deste arquivo e substituí-lo no conhecimento do projeto. É ele que dá continuidade entre conversas.
 
-**Fase atual:** Fase 0 — Setup do ambiente
+**Fase atual:** Fase 0 concluída — pronto para iniciar Fase 1
 **Última atualização:** 12/07/2026
-**Próxima ação:** criar repositório no GitHub e docker-compose do PostgreSQL
+**Próxima ação:** baixar amostras dos datasets ANEEL (continuidade, reclamações, tarifas) e ler os dicionários oficiais para iniciar `01_eda_fontes.ipynb`
 
 ---
 
 ## Fase 0 — Setup (2–3 dias)
-- [ ] Repositório `analise-qualidade-energia-aneel` criado no GitHub
-- [ ] Estrutura de pastas
-- [ ] `docker-compose.yml` (PostgreSQL 16 + volume)
-- [ ] venv + `requirements.txt`
-- [ ] `.env` / `.env.example`
-- [ ] Schemas `raw`, `staging`, `dw` criados
-- [ ] Primeiro commit + README inicial
+- [x] Repositório `analise-qualidade-energia-aneel` criado no GitHub
+- [x] Estrutura de pastas
+- [x] `docker-compose.yml` (mantido como referência; setup real via Postgres portable — D-007)
+- [x] venv + `requirements.txt`
+- [x] `.env` / `.env.example`
+- [x] Schemas `raw`, `staging`, `dw` criados (validado via `python -m src.test_connection`)
+- [x] Primeiro commit + README inicial
 
 ## Fase 1 — Exploração e dicionário (1 semana)
 - [ ] Amostras baixadas + dicionários oficiais lidos
@@ -74,7 +74,8 @@
 
 ## Bloqueios / pendências atuais
 
-*(nenhum)*
+- **Docker/WSL indisponíveis** na máquina corporativa (sem admin). Contornado com Postgres portable — ver decisão **D-007** e `docs/setup_postgres_portable.md`. Não é bloqueio ativo, mas afeta a reprodução em outras máquinas: quem tiver admin pode voltar ao `docker compose up -d`.
+- **Windows long-path desabilitado** (também requer admin). Contornado trocando `jupyter` por `ipykernel` no `requirements.txt`. Notebooks da Fase 1 rodam pelo kernel do VS Code — se precisarmos do JupyterLab clássico, reavaliar.
 
 ## Ideias estacionadas (fase 2 — NÃO implementar agora)
 
